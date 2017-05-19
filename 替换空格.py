@@ -43,6 +43,26 @@ class Solution_1:
         return result_string
 
 
+class Solution_2:
+    def replace_space(self, source_string, replace_item):
+        # 判断源字符串是否为string
+        if not isinstance(source_string, str):
+            return None
+        # 如果源字符串是None， 返回None
+        if source_string == None:
+            return None
+        # 如果源字符串是‘’， 返回‘’
+        if len(source_string) == 0:
+            return ''
+        # 如果替换字符非字符串或是None或者‘’，返回源字符串
+        if not isinstance(replace_item, str) or replace_item == None or len(replace_item) == 0:
+            return source_string
+
+        # 利用string的replace函数处理
+        return source_string.replace(' ', replace_item)
+
+
+
 # test data
 str_1 = 'Python is a useful language.'
 str_2 = ''
@@ -54,6 +74,7 @@ replace_1 = '%20'
 replace_2 = ''
 replace_3 = None
 replace_4 = 1
+
 test = Solution_1()
 print test.replace_space(str_1, replace_1)
 print test.replace_space(str_1, replace_2)
@@ -64,3 +85,14 @@ print test.replace_space(str_2, replace_1)
 print test.replace_space(str_3, replace_1)
 print test.replace_space(str_4, replace_1)
 print test.replace_space(str_5, replace_1)
+
+test_2 = Solution_2()
+print test_2.replace_space(str_1, replace_1)
+print test_2.replace_space(str_1, replace_2)
+print test_2.replace_space(str_1, replace_3)
+print test_2.replace_space(str_1, replace_4)
+
+print test_2.replace_space(str_2, replace_1)
+print test_2.replace_space(str_3, replace_1)
+print test_2.replace_space(str_4, replace_1)
+print test_2.replace_space(str_5, replace_1)
