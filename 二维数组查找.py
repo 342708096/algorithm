@@ -18,6 +18,8 @@
 
 如果出现了array中既有字符串,又有数字,可能需要用到ord()函数
 '''
+import unittest
+
 class Solution_1:
     def Find(self, array, target):
 
@@ -46,6 +48,25 @@ class Solution_1:
                 row = row + 1
         return find_flag
 
+
+class Solution_2:
+    def Find(self, array, target):
+
+        # 初始化标识变量
+        find_flag = False
+
+        # 判断是否为空数组，若是直接返回无结果
+        if array == None or len(array) == 0:
+            return find_flag
+
+        # 利用in直接查找
+        for array_index in range(len(array)):
+            if target in array[array_index]:
+                find_flag = True
+        return find_flag
+
+
+
 # 测试数据
 array = [[1, 3, 5, 7],
          [2, 4, 6, 8],
@@ -68,4 +89,34 @@ print find_target.Find(array_3, 9)
 print find_target.Find(array_4, 9)
 print find_target.Find(array_4, 62)
 
+find_target = Solution_2()
+print find_target.Find(array, 9)
+print find_target.Find(array, 12)
+print find_target.Find(array_2, 9)
+print find_target.Find(array_3, 9)
+print find_target.Find(array_4, 9)
+print find_target.Find(array_4, 62)
 
+
+# Test Code
+class TestSolution(unittest.TestCase):
+
+    def test_solution_1(self):
+        find_target_1 = Solution_1()
+        print 'test solution_1 start'
+        self.assertEquals(find_target_1.Find(array, 9), True)
+        self.assertEquals(find_target_1.Find(array, 12), False)
+        self.assertEquals(find_target_1.Find(array_2, 9), False)
+        self.assertEquals(find_target_1.Find(array_3, 9), False)
+        self.assertEquals(find_target_1.Find(array_4, 62), True)
+        print 'test solution_1 end'
+
+    def test_solution_2(self):
+        find_target_2 = Solution_2()
+        print 'test solution_2 start'
+        self.assertEquals(find_target_2.Find(array, 9), True)
+        self.assertEquals(find_target_2.Find(array, 12), False)
+        self.assertEquals(find_target_2.Find(array_2, 9), False)
+        self.assertEquals(find_target_2.Find(array_3, 9), False)
+        self.assertEquals(find_target_2.Find(array_4, 62), True)
+        print 'test solution_2 end'
