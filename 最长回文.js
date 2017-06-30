@@ -62,3 +62,31 @@ function findLongestPalindrome2(str){
 }
 
 console.log(findLongestPalindrome2('12333211'));
+
+//思路三: Manacher 时间复杂度为O(N)
+
+function manacher(str){
+    str = Array.from(str).join('#');
+    const length = str.length;
+    const rad = new Array(length).fill(0);
+    for (let i= 1, j = 1,k = 1; i < length; i += k){
+        while(i - j >= 0 && i + j < length && str.charAt(i - j) === str.charAt(i + j)){
+            j ++ ;
+        }
+        rad[i] = j -1;
+        for (k = 1; k <= rad[i] && rad[i-k]!==rad[i] - k; k++){
+            rad[i + k] = Math.min(rad[i-k], rad[i] - k);
+        }
+        j = Math.max(j-k, 0);
+    }
+    let max = 0, center=0;
+    for (let i = 0; i< length; i++){
+        if (rad[i] > max){
+            max = rad[i];
+            center = i;
+        }
+    }
+    return str.substr(center-max, 2*max+1 ).replace(/#/g,'');
+}
+
+console.log(manacher('1233211'));
