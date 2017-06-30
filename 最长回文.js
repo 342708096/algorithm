@@ -69,7 +69,7 @@ function manacher(str){
     str = Array.from(str).join('#');
     const length = str.length;
     const rad = new Array(length).fill(0);
-    for (let i= 1, j = 1,k = 1; i < length; i += k){
+    for (let i= 1, j = 1,k = 1; i < length;  j = Math.max(j-k, 0), i += k){
         while(i - j >= 0 && i + j < length && str.charAt(i - j) === str.charAt(i + j)){
             j ++ ;
         }
@@ -77,7 +77,7 @@ function manacher(str){
         for (k = 1; k <= rad[i] && rad[i-k]!==rad[i] - k; k++){
             rad[i + k] = Math.min(rad[i-k], rad[i] - k);
         }
-        j = Math.max(j-k, 0);
+
     }
     let max = 0, center=0;
     for (let i = 0; i< length; i++){
@@ -89,4 +89,4 @@ function manacher(str){
     return str.substr(center-max, 2*max+1 ).replace(/#/g,'');
 }
 
-console.log(manacher('1233211'));
+console.log(manacher('12321123211'));
